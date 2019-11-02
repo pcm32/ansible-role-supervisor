@@ -31,6 +31,7 @@ supervisor_nodaemon: false
 supervisor_log_dir: /var/log/supervisor
 
 supervisor_user: root
+supervisor_user_group: root
 supervisor_password: 'my_secret_password'
 
 supervisor_unix_http_server_enable: true
