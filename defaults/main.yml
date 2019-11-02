@@ -12,6 +12,9 @@ supervisor_config_path: /etc/supervisor
 # By default assume a root type installation
 supervisor_root_install: true
 
+# Set a virtualenv for non-root
+supervisor_virtualenv: false
+
 # A list of `program`s Supervisor will control. Example commented out below.
 supervisor_programs: []
 # - name: 'apache'
