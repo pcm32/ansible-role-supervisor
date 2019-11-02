@@ -7,13 +7,29 @@
     name: supervisor
     state: present
     version: "{{ supervisor_version }}"
-  when: supervisor_version != 'latest'
+  when: supervisor_version != 'latest' and supervisor_root_install
 
 - name: Ensure Supervisor is installed (latest version).
   pip:
     name: supervisor
     state: present
-  when: supervisor_version == 'latest'
+  when: supervisor_version == 'latest' and supervisor_root_install
+  
+- name: Ensure Supervisor is installed (specific version).
+  pip:
+    name: supervisor
+    state: present
+    virtualenv: "{{ supervisor_virtualenv }}"
+    version: "{{ supervisor_version }}"
+  when: supervisor_version != 'latest' and supervisor_virtualenv
+
+- name: Ensure Supervisor is installed (latest version).
+  pip:
+    name: supervisor
+    state: present
+    virtualenv: "{{ supervisor_virtualenv }}"
+  when: supervisor_version == 'latest' and supervisor_virtualenv
+
 
 - name: Ensure Supervisor log dir exists.
   file:
