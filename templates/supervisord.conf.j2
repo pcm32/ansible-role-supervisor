@@ -1,13 +1,17 @@
 [supervisord]
 nodaemon = {{ supervisor_nodaemon }}
 childlogdir = {{ supervisor_log_dir }}
+{% if supervisor_root_install %}
 user = {{ supervisor_user }}
-pidfile = /var/run/supervisord.pid
+{% endif %}
+pidfile = {{ supervisor_pid_file }}
 
 {% if supervisor_unix_http_server_enable %}
 [unix_http_server]
 file = {{ supervisor_unix_http_server_socket_path }}
+{% if supervisor_root_install %}
 chown = {{ supervisor_socket_chown }}
+{% endif %}
 {% if supervisor_unix_http_server_password_protect %}
 username = {{ supervisor_socket_user }}
 password = {SHA}{{ supervisor_password|hash('sha1') }}

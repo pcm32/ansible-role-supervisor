@@ -8,12 +8,9 @@ supervisor_started: true
 supervisor_enabled: true
 
 supervisor_config_path: /etc/supervisor
-
+supervisor_pid_file: /var/run/supervisord.pid
 # By default assume a root type installation
 supervisor_root_install: true
-
-# Set a virtualenv for non-root
-supervisor_virtualenv: false
 
 # A list of `program`s Supervisor will control. Example commented out below.
 supervisor_programs: []
@@ -39,6 +36,7 @@ supervisor_log_dir: /var/log/supervisor
 supervisor_user: root
 supervisor_user_group: root
 supervisor_password: 'my_secret_password'
+supervisor_use_brew: false
 
 supervisor_unix_http_server_enable: true
 supervisor_unix_http_server_socket_path: /var/run/supervisor.sock

@@ -7,13 +7,19 @@
     name: supervisor
     state: present
     version: "{{ supervisor_version }}"
-  when: supervisor_version != 'latest'
+  when: supervisor_version != 'latest' and not supervisor_use_brew|bool
 
 - name: Ensure Supervisor is installed (latest version).
   pip:
     name: supervisor
     state: present
-  when: supervisor_version == 'latest'
+  when: supervisor_version == 'latest' and not supervisor_use_brew|bool
+
+- name: Ensure Supervisor is installed (brew based)
+  homebrew:
+    name: supervisor
+    state: present
+  when: supervisor_use_brew|bool
 
 - name: Ensure Supervisor log dir exists.
   file:
@@ -33,10 +39,10 @@
   when: supervisor_started and supervisor_root_install
 
 - name: Ensure Supervisor is started - non-root - (if configured)
-  shell: "source {{ supervisor_virtualenv }}/bin/activate && supervisord"
+  shell: "supervisord"
   args:
     chdir: "{{ supervisor_config_path }}"
-  when: supervisor_enabled and !supervisor_root_install and supervisor_virtualenv
+  when: supervisor_enabled and not supervisor_root_install|bool
 
 - name: Ensure Supervisor is enabled at boot (if configured).
   service:
