@@ -39,7 +39,7 @@
   when: supervisor_started and supervisor_root_install
 
 - name: Ensure Supervisor is started - non-root - (if configured)
-  shell: "supervisord"
+  shell: "supervisord -c {{ supervisor_config_path }}/supervisord.conf"
   args:
     chdir: "{{ supervisor_config_path }}"
   when: supervisor_enabled and not supervisor_root_install|bool
