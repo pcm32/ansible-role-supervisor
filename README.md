@@ -1,12 +1,29 @@
 # Ansible Role: Supervisor
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-supervisor.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-supervisor)
 
-An Ansible Role that installs [Supervisor](http://supervisord.org/) on Linux.
+An Ansible Role that installs [Supervisor](http://supervisord.org/) on Linux. This fork adds the ability to install in a non-root manner with homebrew.
 
 ## Requirements
 
 Python `pip` should be installed. If it is not already installed, you can use the `geerlingguy.pip` Ansible role to install Pip prior to running this role.
+
+## Installing as non-root
+
+To install in the user space (not root), set at least the following varibales:
+
+```
+supervisor_root_install: false
+supervisor_use_brew: true
+```
+
+In addition, you will probably want to set these up as well:
+
+```
+supervisor_user: "desired_user"
+supervisor_user_group: "desired_group"
+supervisor_config_path: "/homes/{{ supervisor_user }}/.linuxbrew/etc/supervisor_{{ inventory_hostname }}"
+supervisor_log_dir: "/homes/{{ supervisor_user}}/.linuxbrew/var/log/supervisor_{{ inventory_hostname }}"
+```
 
 ## Role Variables
 
